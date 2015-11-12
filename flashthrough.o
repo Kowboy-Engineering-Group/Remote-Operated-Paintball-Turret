@@ -1,0 +1,77 @@
+XL
+H 4 areas 5 global symbols
+M flashthrough.c
+A text size 6A flags 0
+dbfile G:\mega48\flashthrough.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 45 0
+dbline 46 0
+dbline 48 4
+dbline 49 4
+dbline 4A A
+dbline 4A 16
+dbline 4B 16
+dbline 4C 1A
+dbline 4D 20
+dbline 4E 20
+dbline 4F 2A
+dbline 4D 2A
+dbline 50 32
+dbline 51 36
+dbline 52 3E
+dbline 53 3E
+dbline 54 48
+dbline 52 48
+dbline 55 50
+dbline 56 54
+dbline 57 54
+dbline 48 54
+dbline FFFFFFFE 56
+dbline 0 56
+dbfunc e initialize_ports 58 fV
+dbline FFFFFFFF 58
+dbline 60 58
+dbline 62 58
+dbline 63 5C
+dbline 66 60
+dbline 67 62
+dbline 6A 64
+dbline 6B 66
+dbline FFFFFFFE 68
+dbline 0 68
+S _main Def0000
+S _initialize_ports Def0058
+A data size 2 flags 20
+dbfile G:\mega48\flashthrough.c
+dbsym e old_PORTC 0 c
+dbsym e countser 1 c
+S _old_PORTC Def0000
+S _countser Def0001
+A idata size 2 flags 0
+A bss size 1 flags 20
+dbfile G:\mega48\flashthrough.c
+dbsym e new_PORTC 0 c
+S _new_PORTC Def0000
+T 00 00 00
+R 00 00 02 00
+T 01 00 00
+R 00 00 02 00
+T 00 00 2B D0 28 C0 26 B0 20 92 00 00 20 90 00 00
+R 00 00 00 00 00 0A 03 00 00 0E 01 00
+T 0E 00 30 90 00 00 32 14 F9 F0 22 24 2B B8 20 92
+R 00 00 00 00 00 04 03 00
+T 1C 00 01 00 05 C0 80 91 01 00 8F 5F 80 93 01 00
+R 00 00 00 00 00 02 01 00 00 08 01 00 00 0E 01 00
+T 2A 00 80 91 01 00 84 36 B8 F3 8F EF 8B B9 22 24
+R 00 00 00 00 00 04 01 00
+T 38 00 20 92 01 00 05 C0 80 91 01 00 8F 5F 80 93
+R 00 00 00 00 00 04 01 00 00 0A 01 00
+T 46 00 01 00 80 91 01 00 84 36 B8 F3 22 24 2B B8
+R 00 00 00 00 00 02 01 00 00 06 01 00
+T 54 00 D7 CF 08 95
+R 00 00 00 00
+T 58 00 8F EF 84 B9 22 24 25 B8 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 66 00 8B B9 08 95
+R 00 00 00 00

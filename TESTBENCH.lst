@@ -1,0 +1,214 @@
+__start:
+__text_start:
+      1B EFCF      LDI	R28,0xFF
+      1C E0D2      LDI	R29,2
+      1D BFCD      OUT	0x3D,R28
+      1E BFDE      OUT	0x3E,R29
+      1F 51C0      SUBI	R28,0x10
+      20 40D0      SBCI	R29,0
+      21 EA0A      LDI	R16,0xAA
+      22 8308      STD	Y+0,R16
+      23 2400      CLR	R0
+      24 E0E1      LDI	R30,1
+      25 E0F1      LDI	R31,1
+      26 E011      LDI	R17,1
+      27 30E2      CPI	R30,2
+      28 07F1      CPC	R31,R17
+      29 F011      BEQ	0x002C
+      2A 9201      ST	R0,Z+
+      2B CFFB      RJMP	0x0027
+      2C 8300      STD	Z+0,R16
+      2D E3E4      LDI	R30,0x34
+      2E E0F0      LDI	R31,0
+      2F E0A0      LDI	R26,0
+      30 E0B1      LDI	R27,1
+      31 E010      LDI	R17,0
+      32 33E5      CPI	R30,0x35
+      33 07F1      CPC	R31,R17
+      34 F021      BEQ	0x0039
+      35 95C8      LPM
+      36 9631      ADIW	R30,1
+      37 920D      ST	R0,X+
+      38 CFF9      RJMP	0x0032
+      39 D001      RCALL	_main
+_exit:
+      3A CFFF      RJMP	_exit
+FILE: G:\mega48\testbench_atmega48_trial1.c
+(0001) //*************************************************************
+(0002) //file name: testbench_atmega48_trial1.c
+(0003) //function: provides test bench for ATMEL AVR ATmega48 controller
+(0004) //target controller: ATMEL ATmega48
+(0005) //
+(0006) //ATMEL AVR ATmega48 Controller Pin Assignments
+(0007) //Chip Port Function I/O Source/Dest Asserted Notes
+(0008) //*************************************************************
+(0009) //Pin 1 Reset
+(0010) //*************************************************************
+(0011) //Pin 1 PB0
+(0012) //Pin 2 PB1
+(0013) //Pin 3 PB2
+(0014) //Pin 4 PB3
+(0015) //Pin 5 PB4 
+(0016) //Pin 6 PB5 
+(0017) //Pin 7 PB6 
+(0018) //Pin 8 PB7 
+(0019) //Pin 9 Reset
+(0020) //Pin 10 VDD
+(0021) //Pin 11 Gnd
+(0022) //Pin 12 Resonator
+(0023) //Pin 13 Resonator
+(0024) //Pin 14 PD0 to tristate LED indicator
+(0025) //Pin 15 PD1 to tristate LED indicator
+(0026) //Pin 16 PD2 to tristate LED indicator
+(0027) //Pin 17 PD3 to tristate LED indicator
+(0028) //Pin 18 PD4 
+(0029) //Pin 19 PD5 
+(0030) //Pin 20 PD6 
+(0031) //Pin 21 PD7 
+(0032) //Pin 22 PC0 to active high RC debounced switch
+(0033) //Pin 23 PC1 to active high RC debounced switch
+(0034) //Pin 24 PC2 to active high RC debounced switch
+(0035) //Pin 25 PC3 to active high RC debounced switch
+(0036) //Pin 26 PC4
+(0037) //Pin 27 PC5
+(0038) //Pin 28 PC6
+(0039) //Pin 29 PC7
+(0040) //Pin 30 AVcc to VDD
+(0041) //Pin 31 AGnd to Ground
+(0042) //Pin 32 ARef to Vcc
+(0043) //Pin 33 PA7
+(0044) //Pin 34 PA6
+(0045) //Pin 35 PA5
+(0046) //Pin 36 PA4
+(0047) //Pin 37 PA3
+(0048) //Pin 38 PA2
+(0049) //Pin 39 PA1
+(0050) //Pin 40 PA0
+(0051) //
+(0052) //orginal authors: Steven Barrett and Daniel Pack
+(0053) //modifying author: Barry Blaha
+(0054) //created: July 12, 2007
+(0055) //last revised: February 25, 2008
+(0056) //***************************************************************
+(0057) //include files**************************************************
+(0058) #include<iom48v.h> 				//ImageCraft ICC AVR
+(0059) 								//include file
+(0060) //for ATmega48
+(0061) //function prototypes********************************************
+(0062) void initialize_ports(void); 	//initializes ports
+(0063) //main program***************************************************
+(0064) //global variables
+(0065) unsigned char old_PORTC = 0x00; //present value of PORTC
+(0066) unsigned char new_PORTC; 		//new values of PORTC
+(0067) void main(void)
+(0068) {
+(0069) initialize_ports(); 			//initialize ports
+_main:
+      3B D036      RCALL	_initialize_ports
+      3C C033      RJMP	0x0070
+(0070) while(1){//main loop
+(0071) 	new_PORTC = PINC; 			//read PORTC
+      3D B026      IN	R2,0x06
+      3E 9220 0101 STS	new_PORTC,R2
+(0072) 	if(new_PORTC != old_PORTC){ //process change
+      40 9020 0100 LDS	R2,old_PORTC
+      42 9030 0101 LDS	R3,new_PORTC
+      44 1432      CP	R3,R2
+      45 F131      BEQ	0x006C
+(0073) 		//in PORTB input
+(0074) 		switch(new_PORTC){ 		//PORTC asserted high
+      46 2D43      MOV	R20,R3
+      47 2755      CLR	R21
+      48 3041      CPI	R20,1
+      49 E0E0      LDI	R30,0
+      4A 075E      CPC	R21,R30
+      4B F069      BEQ	0x0059
+      4C 3042      CPI	R20,2
+      4D E0E0      LDI	R30,0
+      4E 075E      CPC	R21,R30
+      4F F071      BEQ	0x005E
+      50 3044      CPI	R20,4
+      51 E0E0      LDI	R30,0
+      52 075E      CPC	R21,R30
+      53 F079      BEQ	0x0063
+      54 3048      CPI	R20,0x8
+      55 E0E0      LDI	R30,0
+      56 075E      CPC	R21,R30
+      57 F081      BEQ	0x0068
+      58 C013      RJMP	0x006C
+(0075) 			case 0x01: 			//PC0 (0000_0001)
+(0076) 				PORTD=0x00; 	//turn off all LEDs PORTD
+      59 2422      CLR	R2
+      5A B82B      OUT	0x0B,R2
+(0077) 				PORTD=0x01; 	//turn on PD0 LED (0000_0001)
+      5B E081      LDI	R24,1
+      5C B98B      OUT	0x0B,R24
+(0078) 				break;
+      5D C00E      RJMP	0x006C
+(0079) 			case 0x02: 			//PC1 (0000_0010)
+(0080) 				PORTD=0x00; 	//turn off all LEDs PORTD
+      5E 2422      CLR	R2
+      5F B82B      OUT	0x0B,R2
+(0081) 				PORTD=0x02; 	//turn on PD1 LED (0000_0010)
+      60 E082      LDI	R24,2
+      61 B98B      OUT	0x0B,R24
+(0082) 				break;
+      62 C009      RJMP	0x006C
+(0083) 			case 0x04: 			//PC2 (0000_0100)
+(0084) 				PORTD=0x00; 	//turn off all LEDs PORTD
+      63 2422      CLR	R2
+      64 B82B      OUT	0x0B,R2
+(0085) 				PORTD=0x04; 	//turn on PD2 LED (0000_0100)
+      65 E084      LDI	R24,4
+      66 B98B      OUT	0x0B,R24
+(0086) 				break;
+      67 C004      RJMP	0x006C
+(0087) 			case 0x08: 			//PC3 (0000_1000)
+(0088) 				PORTD=0x00; 	//turn off all LEDs PORTD
+      68 2422      CLR	R2
+      69 B82B      OUT	0x0B,R2
+(0089) 				PORTD=0x08; 	//turn on PD3 LED (0000_1000)
+      6A E088      LDI	R24,0x8
+      6B B98B      OUT	0x0B,R24
+(0090) 				break;
+(0091) 			
+(0092) default:; 					//all other cases
+(0093) 		}						//end switch(new_PORTC)
+(0094) 	  } 						//end if new_PORTC
+(0095) 		old_PORTC=new_PORTC; 	//update PORTC
+      6C 9020 0101 LDS	R2,new_PORTC
+      6E 9220 0100 STS	old_PORTC,R2
+      70 CFCC      RJMP	0x003D
+      71 9508      RET
+(0096) 	} 							//end while(1)
+(0097) } 								//end main
+(0098) //***************************************************************
+(0099) //function definitions
+(0100) //***************************************************************
+(0101) //***************************************************************
+(0102) //initialize_ports: provides initial configuration for I/O ports
+(0103) //***************************************************************
+(0104) void initialize_ports(void)
+(0105) {
+(0106) 
+(0107) DDRB=0xff;						//PORTB as output
+_initialize_ports:
+      72 EF8F      LDI	R24,0xFF
+      73 B984      OUT	0x04,R24
+(0108) PORTB=0x00;						//initialize PORTB low
+      74 2422      CLR	R2
+      75 B825      OUT	0x05,R2
+(0109) 	//PORTB is not being used
+(0110) 
+(0111) DDRC=0x00; 						//PORTC[7:0] as input
+      76 B827      OUT	0x07,R2
+(0112) PORTC=0x00; 					//disable PORTC
+      77 B828      OUT	0x08,R2
+(0113) 	//pull-up resistors
+(0114) 
+(0115) DDRD=0xff; 						//set PORTD as output
+      78 B98A      OUT	0x0A,R24
+(0116) PORTD=0x00; 					//initialize low
+FILE: <library>
+      79 B82B      OUT	0x0B,R2
+      7A 9508      RET

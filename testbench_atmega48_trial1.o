@@ -1,0 +1,78 @@
+XL
+H 4 areas 4 global symbols
+M testbench_atmega48_trial1.c
+A text size 80 flags 0
+dbfile G:\mega48\testbench_atmega48_trial1.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 44 0
+dbline 45 0
+dbline 46 4
+dbline 47 4
+dbline 48 A
+dbline 48 16
+dbline 4A 16
+dbline 4C 3C
+dbline 4D 40
+dbline 4E 44
+dbline 50 46
+dbline 51 4A
+dbline 52 4E
+dbline 54 50
+dbline 55 54
+dbline 56 58
+dbline 58 5A
+dbline 59 5E
+dbline 5A 62
+dbline 5C 62
+dbline 5D 62
+dbline 5E 62
+dbline 5F 62
+dbline 60 6A
+dbline 46 6A
+dbline FFFFFFFE 6C
+dbline 0 6C
+dbfunc e initialize_ports 6E fV
+dbline FFFFFFFF 6E
+dbline 69 6E
+dbline 6B 6E
+dbline 6C 72
+dbline 6F 76
+dbline 70 78
+dbline 73 7A
+dbline 74 7C
+dbline FFFFFFFE 7E
+dbline 0 7E
+S _main Def0000
+S _initialize_ports Def006E
+A data size 1 flags 20
+dbfile G:\mega48\testbench_atmega48_trial1.c
+dbsym e old_PORTC 0 c
+S _old_PORTC Def0000
+A idata size 1 flags 0
+A bss size 1 flags 20
+dbfile G:\mega48\testbench_atmega48_trial1.c
+dbsym e new_PORTC 0 c
+S _new_PORTC Def0000
+T 00 00 00
+R 00 00 02 00
+T 00 00 36 D0 33 C0 26 B0 20 92 00 00 20 90 00 00
+R 00 00 00 00 00 0A 03 00 00 0E 01 00
+T 0E 00 30 90 00 00 32 14 31 F1 43 2D 55 27 41 30
+R 00 00 00 00 00 04 03 00
+T 1C 00 E0 E0 5E 07 69 F0 42 30 E0 E0 5E 07 71 F0
+R 00 00 00 00
+T 2A 00 44 30 E0 E0 5E 07 79 F0 48 30 E0 E0 5E 07
+R 00 00 00 00
+T 38 00 81 F0 13 C0 22 24 2B B8 81 E0 8B B9 0E C0
+R 00 00 00 00
+T 46 00 22 24 2B B8 82 E0 8B B9 09 C0 22 24 2B B8
+R 00 00 00 00
+T 54 00 84 E0 8B B9 04 C0 22 24 2B B8 88 E0 8B B9
+R 00 00 00 00
+T 62 00 20 90 00 00 20 92 00 00 CC CF 08 95
+R 00 00 00 00 00 04 03 00 00 08 01 00
+T 6E 00 8F EF 84 B9 22 24 25 B8 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 7C 00 2B B8 08 95
+R 00 00 00 00

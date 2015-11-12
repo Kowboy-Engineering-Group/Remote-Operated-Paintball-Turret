@@ -1,0 +1,307 @@
+__start:
+__text_start:
+       3 E5CF      LDI	R28,0x5F
+       4 E0D2      LDI	R29,2
+       5 BFCD      OUT	0x3D,R28
+       6 BFDE      OUT	0x3E,R29
+       7 51C0      SUBI	R28,0x10
+       8 40D0      SBCI	R29,0
+       9 EA0A      LDI	R16,0xAA
+       A 8308      STD	Y+0,R16
+       B 2400      CLR	R0
+       C E6E1      LDI	R30,0x61
+       D E0F0      LDI	R31,0
+       E E010      LDI	R17,0
+       F 36E2      CPI	R30,0x62
+      10 07F1      CPC	R31,R17
+      11 F011      BEQ	0x0014
+      12 9201      ST	R0,Z+
+      13 CFFB      RJMP	0x000F
+      14 8300      STD	Z+0,R16
+      15 E0E4      LDI	R30,4
+      16 E0F0      LDI	R31,0
+      17 E6A0      LDI	R26,0x60
+      18 E0B0      LDI	R27,0
+      19 E010      LDI	R17,0
+      1A 30E5      CPI	R30,5
+      1B 07F1      CPC	R31,R17
+      1C F021      BEQ	0x0021
+      1D 95C8      LPM
+      1E 9631      ADIW	R30,1
+      1F 920D      ST	R0,X+
+      20 CFF9      RJMP	0x001A
+      21 D001      RCALL	_main
+_exit:
+      22 CFFF      RJMP	_exit
+FILE: C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+(0001) //*************************************************************
+(0002) //file name: testbench_atmega48_trial1.c
+(0003) //function: provides test bench for ATMEL AVR ATmega48 controller
+(0004) //target controller: ATMEL ATmega48
+(0005) //
+(0006) //ATMEL AVR ATmega48 Controller Pin Assignments
+(0007) //Chip Port Function I/O Source/Dest Asserted Notes
+(0008) //*************************************************************
+(0009) //Pin 1 Reset
+(0010) //*************************************************************
+(0011) //Pin 1
+(0012) //Pin 2 
+(0013) //Pin 3 
+(0014) //Pin 4 
+(0015) //Pin 5 
+(0016) //Pin 6 
+(0017) //Pin 7 
+(0018) //Pin 8 
+(0019) //Pin 9 
+(0020) //Pin 10 
+(0021) //Pin 11 
+(0022) //Pin 12 
+(0023) //Pin 13 
+(0024) //Pin 14 
+(0025) //Pin 15 
+(0026) //Pin 16 
+(0027) //Pin 17 
+(0028) //Pin 18 
+(0029) //Pin 19 
+(0030) //Pin 20 
+(0031) //Pin 21 
+(0032) //Pin 22
+(0033) //Pin 23
+(0034) //Pin 24 
+(0035) //Pin 25
+(0036) //Pin 26 
+(0037) //Pin 27 
+(0038) //Pin 28 
+(0039) //Pin 29 
+(0040) //Pin 30 
+(0041) //Pin 31 
+(0042) //Pin 32 
+(0043) //Pin 33 
+(0044) //Pin 34 
+(0045) //Pin 35 
+(0046) //Pin 36 
+(0047) //Pin 37 
+(0048) //Pin 38 
+(0049) //Pin 39 
+(0050) //Pin 40 
+(0051) //
+(0052) //orginal authors: Steven Barrett and Daniel Pack
+(0053) //modifying author: Barry Blaha
+(0054) //created: July 12, 2007
+(0055) //last revised: February 25, 2008
+(0056) //***************************************************************
+(0057) //include files**************************************************
+(0058) #include<iom48v.h> 				//ImageCraft ICC AVR
+(0059) 								//include file
+(0060) //for ATmega48
+(0061) //function prototypes********************************************
+(0062) void initialize_ports(void); 	//initializes ports
+(0063) void InitADC(void);				//initalizes analog to digital
+(0064) void USART_init(void);			//initializes USART
+(0065) void USART_transmit(unsigned char data); //initalizes USART transmitter
+(0066) unsigned int ReadADC(unsigned char channel);//reads analog to digital voltage
+(0067) //main program***************************************************
+(0068) //global variables
+(0069) unsigned char old_digital = 0x00; //present value of analog to digital conversion
+(0070) unsigned char new_digital; 		//new values of analog to digital conversion
+(0071) void main(void)
+(0072) {
+(0073) initialize_ports(); 			//initialize ports
+_main:
+      23 D014      RCALL	_initialize_ports
+(0074) InitADC();						//initialize ADC
+      24 D01C      RCALL	_InitADC
+(0075) USART_init();					//initialize USART
+      25 D047      RCALL	_USART_init
+      26 C00F      RJMP	0x0036
+(0076) 
+(0077) while(1){//main loop
+(0078) 	new_digital = ReadADC(0x20);//read analog input on PORTC pin0, left justify
+      27 E200      LDI	R16,0x20
+      28 D02A      RCALL	_ReadADC
+      29 9300 0061 STS	new_digital,R16
+(0079) 	if(new_digital != old_digital){ //process change
+      2B 9020 0060 LDS	R2,old_digital
+      2D 2E30      MOV	R3,R16
+      2E 1502      CP	R16,R2
+      2F F011      BEQ	0x0032
+(0080) 		PORTB=new_digital;		//in PORTB input
+      30 B905      OUT	0x05,R16
+(0081) 		USART_transmit(new_digital);
+      31 D04A      RCALL	_USART_transmit
+(0082) 		//PORTB=new_digital;		//in PORTB input
+(0083) 	  } 						//end if new_digital
+(0084) 		old_digital=new_digital;//update PORTC
+      32 9020 0061 LDS	R2,new_digital
+      34 9220 0060 STS	old_digital,R2
+      36 CFF0      RJMP	0x0027
+      37 9508      RET
+(0085) 	} 							//end while(1)
+(0086) } 								//end main
+(0087) //***************************************************************
+(0088) //function definitions
+(0089) //***************************************************************
+(0090) //***************************************************************
+(0091) //initialize_ports: provides initial configuration for I/O ports
+(0092) //***************************************************************
+(0093) void initialize_ports(void)
+(0094) {
+(0095) 
+(0096) DDRB=0xff;						//PORTB as output
+_initialize_ports:
+      38 EF8F      LDI	R24,0xFF
+      39 B984      OUT	0x04,R24
+(0097) PORTB=0xff;						//initialize PORTB high
+      3A B985      OUT	0x05,R24
+(0098) 	//PORTB is not being used
+(0099) 
+(0100) DDRC=0x00; 						//PORTC[7:0] as input
+      3B 2422      CLR	R2
+      3C B827      OUT	0x07,R2
+(0101) PORTC=0x00; 					//disable PORTC
+      3D B828      OUT	0x08,R2
+(0102) 	//pull-up resistors
+(0103) 
+(0104) DDRD=0xff; 						//set PORTD as output
+      3E B98A      OUT	0x0A,R24
+(0105) PORTD=0xff; 					//initialize high
+      3F B98B      OUT	0x0B,R24
+      40 9508      RET
+(0106) 	//port D is transmitting usart on channel 1 pin 3
+(0107) }
+(0108) //***************************************************************
+(0109) 
+(0110) 
+(0111) 
+(0112) //*************************************************************
+(0113) //InitADC: initialize analog-to-digital converter
+(0114) //*************************************************************
+(0115) void InitADC( void)
+(0116) {
+(0117) PRR=0x00;//Power Reduction Register, zeros shut off all power reduction 
+_InitADC:
+      41 2422      CLR	R2
+      42 9220 0064 STS	new_digital+3,R2
+(0118) ADMUX = 0; //Select channel 0
+      44 9220 007C STS	0x007C,R2
+(0119) ADCSRA = 0xC3; 	/*Enable ADC & start 1st dummy conversion Set ADC module prescalar to 8 critical for accurate ADC results*/
+      46 EC83      LDI	R24,0xC3
+      47 9380 007A STS	0x007A,R24
+(0120) while (!(ADCSRA & 0x10)); 	//Check if conversation is ready
+      49 9180 007A LDS	R24,0x007A
+      4B 7180      ANDI	R24,0x10
+      4C F3E1      BEQ	0x0049
+(0121) ADCSRA |= 0x10; //Clear conv rdy flag - set the bit, reset interupt flag
+      4D 9180 007A LDS	R24,0x007A
+      4F 6180      ORI	R24,0x10
+      50 9380 007A STS	0x007A,R24
+      52 9508      RET
+_ReadADC:
+  binary_weighted_voltage_high --> Y,+1
+  binary_weighted_voltage_low --> Y,+1
+  binary_weighted_voltage --> Y,+1
+  most_significantbits --> R10
+  channel              --> R16
+      53 92AA      ST	R10,-Y
+      54 92BA      ST	R11,-Y
+(0122) }
+(0123) //*************************************************************
+(0124) //ReadADC: read analog voltage from analog-to-digital converter -
+(0125) //the desired channel for conversion is passed in as an unsigned
+(0126) //character variable. The result is returned as a left justified,
+(0127) //10 bit binary result. The ADC prescalar must be set to 8 to
+(0128) //slow down the ADC clock at higher external clock frequencies
+(0129) //(10 MHz) to obtain accurate results.
+(0130) //*************************************************************
+(0131) unsigned int ReadADC(unsigned char channel)
+(0132) {
+(0133) unsigned int binary_weighted_voltage, binary_weighted_voltage_low;
+(0134) unsigned int binary_weighted_voltage_high; //weighted binary voltage
+(0135) unsigned int most_significantbits;
+(0136) ADMUX = channel; //Select channel
+      55 9300 007C STS	0x007C,R16
+(0137) ADCSRA |= 0x43; //Start conversion
+      57 9180 007A LDS	R24,0x007A
+      59 6483      ORI	R24,0x43
+      5A 9380 007A STS	0x007A,R24
+(0138) //Set ADC module prescalar
+(0139) //to 8 critical for
+(0140) //accurate ADC results
+(0141) while (!(ADCSRA & 0x10)); //Check if converstion is
+      5C 9180 007A LDS	R24,0x007A
+      5E 7180      ANDI	R24,0x10
+      5F F3E1      BEQ	0x005C
+(0142) //ready
+(0143) ADCSRA |= 0x10; //Clear Conv rdy flag - set
+      60 9180 007A LDS	R24,0x007A
+      62 6180      ORI	R24,0x10
+      63 9380 007A STS	0x007A,R24
+(0144) //the bit
+(0145) /*binary_weighted_voltage_low = ADCL; //Read 8 low bits first
+(0146) //(important)
+(0147) //Read 2 high bits,
+(0148) //multiply by 256
+(0149) binary_weighted_voltage_high = ((unsigned int)(ADCH << 8));
+(0150) binary_weighted_voltage = binary_weighted_voltage_low | binary_weighted_voltage_high;*/
+(0151) most_significantbits=ADCH;
+      65 90A0 0079 LDS	R10,0x0079
+      67 24BB      CLR	R11
+(0152) return most_significantbits; //ADCH:ADCL
+      68 2D0A      MOV	R16,R10
+      69 2D1B      MOV	R17,R11
+      6A 90B9      LD	R11,Y+
+      6B 90A9      LD	R10,Y+
+      6C 9508      RET
+(0153) }
+(0154) //*************************************************************
+(0155) 
+(0156) 
+(0157) //*************************************************************
+(0158) //USART_init: initializes the USART system
+(0159) /*********************************************/
+(0160) void USART_init(void)
+(0161) {
+(0162) /*Set baud rate */
+(0163) UBRR0H = 0x00; 	  	//instead of using ubrr use values from barretts primer example
+_USART_init:
+      6D 2422      CLR	R2
+      6E 9220 00C5 STS	0x00C5,R2
+(0164) UBRR0L = 0x40;
+      70 E480      LDI	R24,0x40
+      71 9380 00C4 STS	0x00C4,R24
+(0165) /*Enable transmitter 0x08=0b00001000*/
+(0166) UCSR0B = 0x08;
+      73 E088      LDI	R24,0x8
+      74 9380 00C1 STS	0x00C1,R24
+(0167) /* 0b00000110=0x06 async,no parity,1 stop bit, 8 bit width. see page 194 of data sheet */
+(0168) UCSR0C = 0x06;
+      76 E086      LDI	R24,6
+      77 9380 00C2 STS	0x00C2,R24
+(0169) /*                                    */
+(0170) UCSR0A = 0x00;
+      79 9220 00C0 STS	0x00C0,R2
+      7B 9508      RET
+(0171) }
+(0172) 
+(0173) /*********************************************/
+(0174) 
+(0175) //*************************************************************
+(0176) //USART_transmit: transmits single byte of data
+(0177) /*********************************************/
+(0178) 
+(0179) 
+(0180) void USART_transmit( unsigned char data )
+(0181) {
+(0182) /* Wait for empty transmit buffer */
+(0183) while ( !( UCSR0A & (1<<UDRE0)) )
+_USART_transmit:
+  data                 --> R16
+      7C 9180 00C0 LDS	R24,0x00C0
+      7E 7280      ANDI	R24,0x20
+      7F F3E1      BEQ	0x007C
+(0184) ;
+(0185) /* Put data into buffer, sends the data */
+(0186) UDR0 = data;
+FILE: <library>
+      80 9300 00C6 STS	0x00C6,R16
+      82 9508      RET

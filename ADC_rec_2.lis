@@ -1,0 +1,259 @@
+                        .module ADC_rec_2.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+ 0000           _old_digital::
+ 0000                   .blkb 1
+                        .area idata
+ 0000 00                .byte 0
+                        .area data(ram, con, rel)
+ 0001                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+ 0001                   .dbsym e old_digital _old_digital c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+ 0000                   .dbfunc e main _main fV
+                        .even
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 70
+ 0000           ; //*************************************************************
+ 0000           ; //file name: testbench_atmega48_trial1.c
+ 0000           ; //function: provides test bench for ATMEL AVR ATmega48 controller
+ 0000           ; //target controller: ATMEL ATmega48
+ 0000           ; //
+ 0000           ; //ATMEL AVR ATmega48 Controller Pin Assignments
+ 0000           ; //Chip Port Function I/O Source/Dest Asserted Notes
+ 0000           ; //*************************************************************
+ 0000           ; //Pin 1 Reset
+ 0000           ; //*************************************************************
+ 0000           ; //Pin 1
+ 0000           ; //Pin 2 
+ 0000           ; //Pin 3 
+ 0000           ; //Pin 4 
+ 0000           ; //Pin 5 
+ 0000           ; //Pin 6 
+ 0000           ; //Pin 7 
+ 0000           ; //Pin 8 
+ 0000           ; //Pin 9 
+ 0000           ; //Pin 10 
+ 0000           ; //Pin 11 
+ 0000           ; //Pin 12 
+ 0000           ; //Pin 13 
+ 0000           ; //Pin 14 
+ 0000           ; //Pin 15 
+ 0000           ; //Pin 16 
+ 0000           ; //Pin 17 
+ 0000           ; //Pin 18 
+ 0000           ; //Pin 19 
+ 0000           ; //Pin 20 
+ 0000           ; //Pin 21 
+ 0000           ; //Pin 22
+ 0000           ; //Pin 23
+ 0000           ; //Pin 24 
+ 0000           ; //Pin 25
+ 0000           ; //Pin 26 
+ 0000           ; //Pin 27 
+ 0000           ; //Pin 28 
+ 0000           ; //Pin 29 
+ 0000           ; //Pin 30 
+ 0000           ; //Pin 31 
+ 0000           ; //Pin 32 
+ 0000           ; //Pin 33 
+ 0000           ; //Pin 34 
+ 0000           ; //Pin 35 
+ 0000           ; //Pin 36 
+ 0000           ; //Pin 37 
+ 0000           ; //Pin 38 
+ 0000           ; //Pin 39 
+ 0000           ; //Pin 40 
+ 0000           ; //
+ 0000           ; //orginal authors: Steven Barrett and Daniel Pack
+ 0000           ; //modifying author: Barry Blaha
+ 0000           ; //created: July 12, 2007
+ 0000           ; //last revised: February 25, 2008
+ 0000           ; //***************************************************************
+ 0000           ; //include files**************************************************
+ 0000           ; #include<iom48v.h>                            //ImageCraft ICC AVR
+ 0000           ;                                                               //include file
+ 0000           ; //for ATmega48
+ 0000           ; //function prototypes********************************************
+ 0000           ; void initialize_ports(void);  //initializes ports
+ 0000           ; void USART_init(void);                        //initializes USART
+ 0000           ; unsigned char USART_Receive( void ); //USART Receiver
+ 0000           ; //main program***************************************************
+ 0000           ; //global variables
+ 0000           ; unsigned char old_digital = 0x00; //present value of analog to digital conversion
+ 0000           ; unsigned char new_digital;            //new values of analog to digital conversion
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 71
+ 0000           ; initialize_ports();                   //initialize ports
+ 0000 11D0              rcall _initialize_ports
+ 0002                   .dbline 72
+ 0002           ; USART_init();                                 //initialize USART
+ 0002 19D0              rcall _USART_init
+ 0004 0DC0              rjmp L3
+ 0006           L2:
+ 0006                   .dbline 74
+ 0006           ; 
+ 0006           ; while(1){//main loop
+ 0006                   .dbline 75
+ 0006           ;       new_digital = USART_Receive();//read analog input on PORTC pin0, left justify
+ 0006 26D0              rcall _USART_Receive
+ 0008 00930000          sts _new_digital,R16
+ 000C                   .dbline 76
+ 000C           ;       if(new_digital != old_digital){ //process change
+ 000C 20900000          lds R2,_old_digital
+ 0010 302E              mov R3,R16
+ 0012 0215              cp R16,R2
+ 0014 09F0              breq L5
+ 0016           X0:
+ 0016                   .dbline 76
+ 0016                   .dbline 77
+ 0016           ;               PORTB=new_digital;              //in PORTB input
+ 0016 05B9              out 0x5,R16
+ 0018                   .dbline 79
+ 0018           ;               //PORTB=new_digital;            //in PORTB input
+ 0018           ;         }                                             //end if new_digital
+ 0018           L5:
+ 0018                   .dbline 80
+ 0018           ;               old_digital=new_digital;//update PORTC
+ 0018 20900000          lds R2,_new_digital
+ 001C 20920000          sts _old_digital,R2
+ 0020                   .dbline 81
+ 0020           ;       }                                                       //end while(1)
+ 0020           L3:
+ 0020                   .dbline 74
+ 0020 F2CF              rjmp L2
+ 0022           X1:
+ 0022                   .dbline -2
+ 0022           L1:
+ 0022                   .dbline 0 ; func end
+ 0022 0895              ret
+ 0024                   .dbend
+ 0024                   .dbfunc e initialize_ports _initialize_ports fV
+                        .even
+ 0024           _initialize_ports::
+ 0024                   .dbline -1
+ 0024                   .dbline 90
+ 0024           ; }                                                             //end main
+ 0024           ; //***************************************************************
+ 0024           ; //function definitions
+ 0024           ; //***************************************************************
+ 0024           ; //***************************************************************
+ 0024           ; //initialize_ports: provides initial configuration for I/O ports
+ 0024           ; //***************************************************************
+ 0024           ; void initialize_ports(void)
+ 0024           ; {
+ 0024                   .dbline 92
+ 0024           ; 
+ 0024           ; DDRB=0xff;                                            //PORTB as output
+ 0024 8FEF              ldi R24,255
+ 0026 84B9              out 0x4,R24
+ 0028                   .dbline 93
+ 0028           ; PORTB=0xff;                                           //initialize PORTB high
+ 0028 85B9              out 0x5,R24
+ 002A                   .dbline 96
+ 002A           ;       //PORTB is not being used
+ 002A           ; 
+ 002A           ; DDRC=0x00;                                            //PORTC[7:0] as input
+ 002A 2224              clr R2
+ 002C 27B8              out 0x7,R2
+ 002E                   .dbline 97
+ 002E           ; PORTC=0x00;                                   //disable PORTC
+ 002E 28B8              out 0x8,R2
+ 0030                   .dbline 100
+ 0030           ;       //pull-up resistors
+ 0030           ; 
+ 0030           ; DDRD=0x00;                                            //set PORTD as input
+ 0030 2AB8              out 0xa,R2
+ 0032                   .dbline 101
+ 0032           ; PORTD=0x00;                                   //disable portD
+ 0032 2BB8              out 0xb,R2
+ 0034                   .dbline -2
+ 0034           L7:
+ 0034                   .dbline 0 ; func end
+ 0034 0895              ret
+ 0036                   .dbend
+ 0036                   .dbfunc e USART_init _USART_init fV
+                        .even
+ 0036           _USART_init::
+ 0036                   .dbline -1
+ 0036                   .dbline 110
+ 0036           ;       //port D is receiving usart on channel 0, pin 2
+ 0036           ; }
+ 0036           ; //***************************************************************
+ 0036           ; 
+ 0036           ; //*************************************************************
+ 0036           ; //USART_init: initializes the USART system
+ 0036           ; /*********************************************/
+ 0036           ; void USART_init(void)
+ 0036           ; {
+ 0036                   .dbline 112
+ 0036           ; /*Set baud rate */
+ 0036           ; UBRR0H = 0x00;                //instead of using ubrr use values from barretts primer example
+ 0036 2224              clr R2
+ 0038 2092C500          sts 197,R2
+ 003C                   .dbline 113
+ 003C           ; UBRR0L = 0x40;
+ 003C 80E4              ldi R24,64
+ 003E 8093C400          sts 196,R24
+ 0042                   .dbline 115
+ 0042           ; /*Enable receiver 0x10=0b00010000*/
+ 0042           ; UCSR0B = 0x10;
+ 0042 80E1              ldi R24,16
+ 0044 8093C100          sts 193,R24
+ 0048                   .dbline 117
+ 0048           ; /* 0b00000110=0x06 async,no parity,1 stop bit, 8 bit width. see page 194 of data sheet */
+ 0048           ; UCSR0C = 0x06;
+ 0048 86E0              ldi R24,6
+ 004A 8093C200          sts 194,R24
+ 004E                   .dbline 119
+ 004E           ; /*                                    */
+ 004E           ; UCSR0A = 0x00;
+ 004E 2092C000          sts 192,R2
+ 0052                   .dbline -2
+ 0052           L8:
+ 0052                   .dbline 0 ; func end
+ 0052 0895              ret
+ 0054                   .dbend
+ 0054                   .dbfunc e USART_Receive _USART_Receive fc
+                        .even
+ 0054           _USART_Receive::
+ 0054                   .dbline -1
+ 0054                   .dbline 126
+ 0054           ; }
+ 0054           ; 
+ 0054           ; /*********************************************/
+ 0054           ; 
+ 0054           ; /*********************************************/
+ 0054           ; unsigned char USART_Receive( void )
+ 0054           ; {
+ 0054           L10:
+ 0054                   .dbline 129
+ 0054           ; /* Wait for data to be received */
+ 0054           ; while ( !(UCSR0A & (1<<RXC0)) )
+ 0054           ; ;
+ 0054           L11:
+ 0054                   .dbline 128
+ 0054 8091C000          lds R24,192
+ 0058 8078              andi R24,128
+ 005A E1F3              breq L10
+ 005C           X2:
+ 005C                   .dbline 131
+ 005C           ; /* Get and return received data from buffer */
+ 005C           ; return UDR0;
+ 005C 0091C600          lds R16,198
+ 0060                   .dbline -2
+ 0060           L9:
+ 0060                   .dbline 0 ; func end
+ 0060 0895              ret
+ 0062                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+ 0000           _new_digital::
+ 0000                   .blkb 1
+ 0001                   .dbsym e new_digital _new_digital c
+ 0001           ; }
+ 0001           ; /*********************************************/

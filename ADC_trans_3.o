@@ -1,0 +1,179 @@
+XL
+H 4 areas 9 global symbols
+M ADC_trans_3.c
+A text size 12E flags 0
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_3.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 49 0
+dbline 4A 0
+dbline 4B 2
+dbline 4C 4
+dbline 4E 8
+dbline 4F 8
+dbline 50 10
+dbline 50 1A
+dbline 51 1A
+dbline 51 1E
+dbline 52 1E
+dbline 54 24
+dbline 55 24
+dbline 55 2C
+dbline 56 2C
+dbline 58 32
+dbline 59 32
+dbline 59 3A
+dbline 5A 3A
+dbline 5C 40
+dbline 5D 40
+dbline 5D 48
+dbline 5E 48
+dbline 60 4E
+dbline 61 4E
+dbline 61 56
+dbline 62 56
+dbline 64 5C
+dbline 65 5C
+dbline 65 64
+dbline 66 64
+dbline 68 6A
+dbline 69 6A
+dbline 69 72
+dbline 6A 72
+dbline 6C 78
+dbline 6D 78
+dbline 6D 80
+dbline 6E 80
+dbline 70 86
+dbline 71 86
+dbline 74 8C
+dbline 75 8C
+dbline 76 94
+dbline 4E 94
+dbline FFFFFFFE 96
+dbline 0 96
+dbfunc e initialize_ports 98 fV
+dbline FFFFFFFF 98
+dbline 7F 98
+dbline 81 98
+dbline 82 9C
+dbline 85 9E
+dbline 86 A2
+dbline 89 A4
+dbline 8A A6
+dbline FFFFFFFE A8
+dbline 0 A8
+dbfunc e InitADC AA fV
+dbline FFFFFFFF AA
+dbline 95 AA
+dbline 96 AA
+dbline 97 B0
+dbline 98 B4
+dbline 99 BA
+dbline 99 BA
+dbline 9A C2
+dbline FFFFFFFE CC
+dbline 0 CC
+dbfunc e ReadADC CE fi
+dbsym l binary_weighted_voltage_high 1 i
+dbsym l binary_weighted_voltage_low 1 i
+dbsym l binary_weighted_voltage 1 i
+dbsym r most_significantbits A i
+dbsym r channel 10 c
+dbline FFFFFFFF D2
+dbline A5 D2
+dbline A9 D2
+dbline AA D6
+dbline AE E0
+dbline AE E0
+dbline B0 E8
+dbline B8 F2
+dbline B9 F8
+dbline FFFFFFFE FC
+dbline 0 FC
+dbfunc e USART_init 102 fV
+dbline FFFFFFFF 102
+dbline C2 102
+dbline C4 102
+dbline C5 108
+dbline C7 10E
+dbline C9 114
+dbline CB 11A
+dbline FFFFFFFE 11E
+dbline 0 11E
+dbfunc e USART_transmit 120 fV
+dbsym r data 10 c
+dbline FFFFFFFF 120
+dbline D6 120
+dbline D9 120
+dbline D8 120
+dbline DB 128
+dbline FFFFFFFE 12C
+dbline 0 12C
+S _USART_init Def0102
+S _main Def0000
+S _initialize_ports Def0098
+S _ReadADC Def00CE
+S _InitADC Def00AA
+S _USART_transmit Def0120
+A data size 1 flags 20
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_3.c
+dbsym e old_digital 0 c
+S _old_digital Def0000
+A idata size 1 flags 0
+A bss size 2 flags 20
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_3.c
+dbsym e transmit_var 0 c
+dbsym e new_digital 1 c
+S _transmit_var Def0000
+S _new_digital Def0001
+T 00 00 00
+R 00 00 02 00
+T 00 00 4B D0 53 D0 7E D0 46 C0 00 E2 61 D0 00 93
+R 00 00 00 00
+T 0E 00 01 00 20 90 00 00 30 2E 02 15 C9 F1 00 31
+R 00 00 00 00 00 02 03 00 00 06 01 00
+T 1C 00 18 F4 81 E0 80 93 00 00 80 91 01 00 80 32
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 2A 00 18 F4 82 E0 80 93 00 00 80 91 01 00 80 33
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 38 00 18 F4 84 E0 80 93 00 00 80 91 01 00 80 34
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 46 00 18 F4 88 E0 80 93 00 00 80 91 01 00 80 35
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 54 00 18 F4 80 E1 80 93 00 00 80 91 01 00 80 36
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 62 00 18 F4 80 E2 80 93 00 00 80 91 01 00 80 37
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 70 00 18 F4 80 E4 80 93 00 00 80 91 01 00 80 38
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 7E 00 18 F4 80 E8 80 93 00 00 00 91 00 00 4A D0
+R 00 00 00 00 00 08 03 00 00 0C 03 00
+T 8C 00 20 90 01 00 20 92 00 00 B9 CF 08 95
+R 00 00 00 00 00 04 03 00 00 08 01 00
+T 98 00 8F EF 84 B9 85 B9 22 24 27 B8 28 B8 8A B9
+R 00 00 00 00
+T A6 00 8B B9 08 95
+R 00 00 00 00
+T AA 00 22 24 20 92 64 00 20 92 7C 00 83 EC 80 93
+R 00 00 00 00
+T B8 00 7A 00 80 91 7A 00 80 71 E1 F3 80 91 7A 00
+R 00 00 00 00
+T C6 00 80 61 80 93 7A 00 08 95
+R 00 00 00 00
+T CE 00 AA 92 BA 92 00 93 7C 00 80 91 7A 00 83 64
+R 00 00 00 00
+T DC 00 80 93 7A 00 80 91 7A 00 80 71 E1 F3 80 91
+R 00 00 00 00
+T EA 00 7A 00 80 61 80 93 7A 00 A0 90 79 00 BB 24
+R 00 00 00 00
+T F8 00 0A 2D 1B 2D B9 90 A9 90 08 95
+R 00 00 00 00
+T 02 01 22 24 20 92 C5 00 80 E4 80 93 C4 00 88 E0
+R 00 00 00 00
+T 10 01 80 93 C1 00 86 E0 80 93 C2 00 20 92 C0 00
+R 00 00 00 00
+T 1E 01 08 95
+R 00 00 00 00
+T 20 01 80 91 C0 00 80 72 E1 F3 00 93 C6 00 08 95
+R 00 00 00 00

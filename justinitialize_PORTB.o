@@ -1,0 +1,54 @@
+XL
+H 4 areas 4 global symbols
+M justinitialize_PORTB.c
+A text size 38 flags 0
+dbfile G:\mega48\justinitialize_PORTB.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 19 0
+dbline 1A 0
+dbline 1B 4
+dbline 1C 4
+dbline 1D A
+dbline 1D 16
+dbline 1E 16
+dbline 1F 1A
+dbline 20 1A
+dbline 21 22
+dbline 1B 22
+dbline FFFFFFFE 24
+dbline 0 24
+dbfunc e initialize_ports 26 fV
+dbline FFFFFFFF 26
+dbline 2A 26
+dbline 2C 26
+dbline 2D 2A
+dbline 30 2E
+dbline 31 30
+dbline 34 32
+dbline 35 34
+dbline FFFFFFFE 36
+dbline 0 36
+S _main Def0000
+S _initialize_ports Def0026
+A data size 1 flags 20
+dbfile G:\mega48\justinitialize_PORTB.c
+dbsym e old_PORTC 0 c
+S _old_PORTC Def0000
+A idata size 1 flags 0
+A bss size 1 flags 20
+dbfile G:\mega48\justinitialize_PORTB.c
+dbsym e new_PORTC 0 c
+S _new_PORTC Def0000
+T 00 00 00
+R 00 00 02 00
+T 00 00 12 D0 0F C0 26 B0 20 92 00 00 20 90 00 00
+R 00 00 00 00 00 0A 03 00 00 0E 01 00
+T 0E 00 30 90 00 00 32 14 11 F0 26 B0 25 B8 20 90
+R 00 00 00 00 00 04 03 00
+T 1C 00 00 00 20 92 00 00 F0 CF 08 95
+R 00 00 00 00 00 02 03 00 00 06 01 00
+T 26 00 8F EF 84 B9 22 24 25 B8 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 34 00 2B B8 08 95
+R 00 00 00 00

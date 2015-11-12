@@ -1,0 +1,61 @@
+XL
+H 4 areas 4 global symbols
+M testbenchss.c
+A text size 4A flags 0
+dbfile G:\mega48\testbenchss.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 44 0
+dbline 45 0
+dbline 46 4
+dbline 47 4
+dbline 48 A
+dbline 48 16
+dbline 4A 16
+dbline 4C 24
+dbline 4D 28
+dbline 4E 2C
+dbline 50 2C
+dbline 51 2C
+dbline 52 2C
+dbline 53 2C
+dbline 54 34
+dbline 46 34
+dbline FFFFFFFE 36
+dbline 0 36
+dbfunc e initialize_ports 38 fV
+dbline FFFFFFFF 38
+dbline 5D 38
+dbline 5F 38
+dbline 60 3C
+dbline 63 40
+dbline 64 42
+dbline 67 44
+dbline 68 46
+dbline FFFFFFFE 48
+dbline 0 48
+S _main Def0000
+S _initialize_ports Def0038
+A data size 1 flags 20
+dbfile G:\mega48\testbenchss.c
+dbsym e old_PORTC 0 c
+S _old_PORTC Def0000
+A idata size 1 flags 0
+A bss size 1 flags 20
+dbfile G:\mega48\testbenchss.c
+dbsym e new_PORTC 0 c
+S _new_PORTC Def0000
+T 00 00 00
+R 00 00 02 00
+T 00 00 1B D0 18 C0 26 B0 20 92 00 00 20 90 00 00
+R 00 00 00 00 00 0A 03 00 00 0E 01 00
+T 0E 00 30 90 00 00 32 14 59 F0 43 2D 55 27 41 30
+R 00 00 00 00 00 04 03 00
+T 1C 00 E0 E0 5E 07 09 F0 04 C0 22 24 2B B8 81 E0
+R 00 00 00 00
+T 2A 00 8B B9 20 90 00 00 20 92 00 00 E7 CF 08 95
+R 00 00 00 00 00 06 03 00 00 0A 01 00
+T 38 00 8F EF 84 B9 22 24 25 B8 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 46 00 2B B8 08 95
+R 00 00 00 00

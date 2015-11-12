@@ -1,0 +1,83 @@
+XL
+H 4 areas 6 global symbols
+M ADC_rec_2.c
+A text size 62 flags 0
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 46 0
+dbline 47 0
+dbline 48 2
+dbline 4A 6
+dbline 4B 6
+dbline 4C C
+dbline 4C 16
+dbline 4D 16
+dbline 4F 18
+dbline 50 18
+dbline 51 20
+dbline 4A 20
+dbline FFFFFFFE 22
+dbline 0 22
+dbfunc e initialize_ports 24 fV
+dbline FFFFFFFF 24
+dbline 5A 24
+dbline 5C 24
+dbline 5D 28
+dbline 60 2A
+dbline 61 2E
+dbline 64 30
+dbline 65 32
+dbline FFFFFFFE 34
+dbline 0 34
+dbfunc e USART_init 36 fV
+dbline FFFFFFFF 36
+dbline 6E 36
+dbline 70 36
+dbline 71 3C
+dbline 73 42
+dbline 75 48
+dbline 77 4E
+dbline FFFFFFFE 52
+dbline 0 52
+dbfunc e USART_Receive 54 fc
+dbline FFFFFFFF 54
+dbline 7E 54
+dbline 81 54
+dbline 80 54
+dbline 83 5C
+dbline FFFFFFFE 60
+dbline 0 60
+S _USART_init Def0036
+S _main Def0000
+S _USART_Receive Def0054
+S _initialize_ports Def0024
+A data size 1 flags 20
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+dbsym e old_digital 0 c
+S _old_digital Def0000
+A idata size 1 flags 0
+A bss size 1 flags 20
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_rec_2.c
+dbsym e new_digital 0 c
+S _new_digital Def0000
+T 00 00 00
+R 00 00 02 00
+T 00 00 11 D0 19 D0 0D C0 26 D0 00 93 00 00 20 90
+R 00 00 00 00 00 0C 03 00
+T 0E 00 00 00 30 2E 02 15 09 F0 05 B9 20 90 00 00
+R 00 00 00 00 00 02 01 00 00 0E 03 00
+T 1C 00 20 92 00 00 F2 CF 08 95
+R 00 00 00 00 00 04 01 00
+T 24 00 8F EF 84 B9 85 B9 22 24 27 B8 28 B8 2A B8
+R 00 00 00 00
+T 32 00 2B B8 08 95
+R 00 00 00 00
+T 36 00 22 24 20 92 C5 00 80 E4 80 93 C4 00 80 E1
+R 00 00 00 00
+T 44 00 80 93 C1 00 86 E0 80 93 C2 00 20 92 C0 00
+R 00 00 00 00
+T 52 00 08 95
+R 00 00 00 00
+T 54 00 80 91 C0 00 80 78 E1 F3 00 91 C6 00 08 95
+R 00 00 00 00

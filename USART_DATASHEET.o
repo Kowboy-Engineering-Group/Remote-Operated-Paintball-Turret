@@ -1,0 +1,64 @@
+XL
+H 1 areas 4 global symbols
+M USART_DATASHEET.c
+A text size 4C flags 0
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\USART_DATASHEET.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline B 0
+dbline C 0
+dbline D 2
+dbline F 6
+dbline 10 6
+dbline 11 A
+dbline F A
+dbline FFFFFFFE C
+dbline 0 C
+dbfunc e USART_Init E fV
+dbline FFFFFFFF E
+dbline 17 E
+dbline 19 E
+dbline 1A 14
+dbline 1C 1A
+dbline 1E 20
+dbline 20 26
+dbline FFFFFFFE 2A
+dbline 0 2A
+dbfunc e USART_Transmit 2C fV
+dbsym r data 10 c
+dbline FFFFFFFF 2C
+dbline 27 2C
+dbline 2A 2C
+dbline 29 2C
+dbline 2C 34
+dbline FFFFFFFE 38
+dbline 0 38
+dbfunc e initialize_ports 3A fV
+dbline FFFFFFFF 3A
+dbline 31 3A
+dbline 33 3A
+dbline 34 3E
+dbline 37 40
+dbline 38 44
+dbline 3B 46
+dbline 3C 48
+dbline FFFFFFFE 4A
+dbline 0 4A
+S _main Def0000
+S _initialize_ports Def003A
+S _USART_Transmit Def002C
+S _USART_Init Def000E
+T 00 00 1C D0 05 D0 02 C0 04 E4 11 D0 FD CF 08 95
+R 00 00 00 00
+T 0E 00 22 24 20 92 C5 00 80 E4 80 93 C4 00 88 E0
+R 00 00 00 00
+T 1C 00 80 93 C1 00 86 E0 80 93 C2 00 20 92 C0 00
+R 00 00 00 00
+T 2A 00 08 95
+R 00 00 00 00
+T 2C 00 80 91 C0 00 80 72 E1 F3 00 93 C6 00 08 95
+R 00 00 00 00
+T 3A 00 8F EF 84 B9 85 B9 22 24 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 48 00 8B B9 08 95
+R 00 00 00 00

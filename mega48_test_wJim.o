@@ -1,0 +1,38 @@
+XL
+H 1 areas 2 global symbols
+M mega48_test_wJim.c
+A text size 24 flags 0
+dbfile G:\mega48\mega48_test_wJim.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline A 0
+dbline B 0
+dbline C 4
+dbline D 4
+dbline 10 6
+dbline 10 6
+dbline 11 6
+dbline 12 A
+dbline 13 A
+dbline C A
+dbline FFFFFFFE C
+dbline 0 C
+dbfunc e initialize_ports E fV
+dbline FFFFFFFF E
+dbline 1C E
+dbline 1E E
+dbline 1F 12
+dbline 22 16
+dbline 23 1A
+dbline 26 1C
+dbline 27 20
+dbline FFFFFFFE 22
+dbline 0 22
+S _main Def0000
+S _initialize_ports Def000E
+T 00 00 06 D0 03 C0 00 C0 22 24 2B B8 FC CF 08 95
+R 00 00 00 00
+T 0E 00 8F EF 84 B9 22 24 25 B8 8E EF 87 B9 28 B8
+R 00 00 00 00
+T 1C 00 8F EF 8A B9 2B B8 08 95
+R 00 00 00 00

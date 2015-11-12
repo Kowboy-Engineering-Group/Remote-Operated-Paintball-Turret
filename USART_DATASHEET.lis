@@ -1,0 +1,161 @@
+                        .module USART_DATASHEET.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\USART_DATASHEET.c
+ 0000                   .dbfunc e main _main fV
+                        .even
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 11
+ 0000           ; #define FOSC 1843200 // Clock Speed
+ 0000           ; #define BAUD 9600
+ 0000           ; #define MYUBRR FOSC/16/BAUD-1
+ 0000           ; #include<iom48v.h>                            //ImageCraft ICC AVR
+ 0000           ; 
+ 0000           ; void initialize_ports(void);  //initializes ports
+ 0000           ; void USART_Transmit( unsigned char ); //transmits data
+ 0000           ; void USART_Init(void); //initializes USART
+ 0000           ; 
+ 0000           ; void main( void )
+ 0000           ; {
+ 0000                   .dbline 12
+ 0000           ; initialize_ports();                   //initialize ports
+ 0000 1CD0              rcall _initialize_ports
+ 0002                   .dbline 13
+ 0002           ; USART_Init();                         //initialize transmitter
+ 0002 05D0              rcall _USART_Init
+ 0004 02C0              rjmp L3
+ 0006           L2:
+ 0006                   .dbline 15
+ 0006           ; 
+ 0006           ; while(1){
+ 0006                   .dbline 16
+ 0006           ;       USART_Transmit(0x44);                   //transmit 
+ 0006 04E4              ldi R16,68
+ 0008 11D0              rcall _USART_Transmit
+ 000A                   .dbline 17
+ 000A           ;       }
+ 000A           L3:
+ 000A                   .dbline 15
+ 000A FDCF              rjmp L2
+ 000C           X0:
+ 000C                   .dbline -2
+ 000C           L1:
+ 000C                   .dbline 0 ; func end
+ 000C 0895              ret
+ 000E                   .dbend
+ 000E                   .dbfunc e USART_Init _USART_Init fV
+                        .even
+ 000E           _USART_Init::
+ 000E                   .dbline -1
+ 000E                   .dbline 23
+ 000E           ;       
+ 000E           ; }
+ 000E           ; 
+ 000E           ; /*********************************************/
+ 000E           ; void USART_Init(void)
+ 000E           ; {
+ 000E                   .dbline 25
+ 000E           ; /*Set baud rate */
+ 000E           ; UBRR0H = 0x00;                //instead of using ubrr use values from barretts primer example
+ 000E 2224              clr R2
+ 0010 2092C500          sts 197,R2
+ 0014                   .dbline 26
+ 0014           ; UBRR0L = 0x40;
+ 0014 80E4              ldi R24,64
+ 0016 8093C400          sts 196,R24
+ 001A                   .dbline 28
+ 001A           ; /*Enable transmitter 0x08=0b00001000*/
+ 001A           ; UCSR0B = 0x08;
+ 001A 88E0              ldi R24,8
+ 001C 8093C100          sts 193,R24
+ 0020                   .dbline 30
+ 0020           ; /* 0b00000110=0x06 async,no parity,1 stop bit, 8 bit width. see page 194 of data sheet */
+ 0020           ; UCSR0C = 0x06;
+ 0020 86E0              ldi R24,6
+ 0022 8093C200          sts 194,R24
+ 0026                   .dbline 32
+ 0026           ; /*                                    */
+ 0026           ; UCSR0A = 0x00;
+ 0026 2092C000          sts 192,R2
+ 002A                   .dbline -2
+ 002A           L5:
+ 002A                   .dbline 0 ; func end
+ 002A 0895              ret
+ 002C                   .dbend
+ 002C                   .dbfunc e USART_Transmit _USART_Transmit fV
+ 002C           ;           data -> R16
+                        .even
+ 002C           _USART_Transmit::
+ 002C                   .dbline -1
+ 002C                   .dbline 39
+ 002C           ; }
+ 002C           ; 
+ 002C           ; /*********************************************/
+ 002C           ; 
+ 002C           ; 
+ 002C           ; void USART_Transmit( unsigned char data )
+ 002C           ; {
+ 002C           L7:
+ 002C                   .dbline 42
+ 002C           ; /* Wait for empty transmit buffer */
+ 002C           ; while ( !( UCSR0A & (1<<UDRE0)) )
+ 002C           ; ;
+ 002C           L8:
+ 002C                   .dbline 41
+ 002C 8091C000          lds R24,192
+ 0030 8072              andi R24,32
+ 0032 E1F3              breq L7
+ 0034           X1:
+ 0034                   .dbline 44
+ 0034           ; /* Put data into buffer, sends the data */
+ 0034           ; UDR0 = data;
+ 0034 0093C600          sts 198,R16
+ 0038                   .dbline -2
+ 0038           L6:
+ 0038                   .dbline 0 ; func end
+ 0038 0895              ret
+ 003A                   .dbsym r data 16 c
+ 003A                   .dbend
+ 003A                   .dbfunc e initialize_ports _initialize_ports fV
+                        .even
+ 003A           _initialize_ports::
+ 003A                   .dbline -1
+ 003A                   .dbline 49
+ 003A           ; }
+ 003A           ; 
+ 003A           ; //***************************************************************
+ 003A           ; void initialize_ports(void)
+ 003A           ; {
+ 003A                   .dbline 51
+ 003A           ; 
+ 003A           ; DDRB=0xff;                                            //PORTB as output
+ 003A 8FEF              ldi R24,255
+ 003C 84B9              out 0x4,R24
+ 003E                   .dbline 52
+ 003E           ; PORTB=0xff;                                           //initialize PORTB high
+ 003E 85B9              out 0x5,R24
+ 0040                   .dbline 55
+ 0040           ;       //PORTB is not being used
+ 0040           ; 
+ 0040           ; DDRC=0x00;                                            //PORTC[7:0] as input
+ 0040 2224              clr R2
+ 0042 27B8              out 0x7,R2
+ 0044                   .dbline 56
+ 0044           ; PORTC=0x00;                                   //disable PORTC
+ 0044 28B8              out 0x8,R2
+ 0046                   .dbline 59
+ 0046           ;       //pull-up resistors
+ 0046           ; 
+ 0046           ; DDRD=0xff;                                            //set PORTD as output
+ 0046 8AB9              out 0xa,R24
+ 0048                   .dbline 60
+ 0048           ; PORTD=0xff;                                   //initialize high
+ 0048 8BB9              out 0xb,R24
+ 004A                   .dbline -2
+ 004A           L10:
+ 004A                   .dbline 0 ; func end
+ 004A 0895              ret
+ 004C                   .dbend
+ 004C           ;       //port D is transmitting usart on channel 1 pin 3
+ 004C           ; }
+ 004C           ; //***************************************************************

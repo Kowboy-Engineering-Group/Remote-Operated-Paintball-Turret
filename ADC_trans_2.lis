@@ -1,0 +1,401 @@
+                        .module ADC_trans_2.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+                        .area data(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+ 0000           _old_digital::
+ 0000                   .blkb 1
+                        .area idata
+ 0000 00                .byte 0
+                        .area data(ram, con, rel)
+ 0001                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+ 0001                   .dbsym e old_digital _old_digital c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+ 0000                   .dbfunc e main _main fV
+                        .even
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 72
+ 0000           ; //*************************************************************
+ 0000           ; //file name: testbench_atmega48_trial1.c
+ 0000           ; //function: provides test bench for ATMEL AVR ATmega48 controller
+ 0000           ; //target controller: ATMEL ATmega48
+ 0000           ; //
+ 0000           ; //ATMEL AVR ATmega48 Controller Pin Assignments
+ 0000           ; //Chip Port Function I/O Source/Dest Asserted Notes
+ 0000           ; //*************************************************************
+ 0000           ; //Pin 1 Reset
+ 0000           ; //*************************************************************
+ 0000           ; //Pin 1
+ 0000           ; //Pin 2 
+ 0000           ; //Pin 3 
+ 0000           ; //Pin 4 
+ 0000           ; //Pin 5 
+ 0000           ; //Pin 6 
+ 0000           ; //Pin 7 
+ 0000           ; //Pin 8 
+ 0000           ; //Pin 9 
+ 0000           ; //Pin 10 
+ 0000           ; //Pin 11 
+ 0000           ; //Pin 12 
+ 0000           ; //Pin 13 
+ 0000           ; //Pin 14 
+ 0000           ; //Pin 15 
+ 0000           ; //Pin 16 
+ 0000           ; //Pin 17 
+ 0000           ; //Pin 18 
+ 0000           ; //Pin 19 
+ 0000           ; //Pin 20 
+ 0000           ; //Pin 21 
+ 0000           ; //Pin 22
+ 0000           ; //Pin 23
+ 0000           ; //Pin 24 
+ 0000           ; //Pin 25
+ 0000           ; //Pin 26 
+ 0000           ; //Pin 27 
+ 0000           ; //Pin 28 
+ 0000           ; //Pin 29 
+ 0000           ; //Pin 30 
+ 0000           ; //Pin 31 
+ 0000           ; //Pin 32 
+ 0000           ; //Pin 33 
+ 0000           ; //Pin 34 
+ 0000           ; //Pin 35 
+ 0000           ; //Pin 36 
+ 0000           ; //Pin 37 
+ 0000           ; //Pin 38 
+ 0000           ; //Pin 39 
+ 0000           ; //Pin 40 
+ 0000           ; //
+ 0000           ; //orginal authors: Steven Barrett and Daniel Pack
+ 0000           ; //modifying author: Barry Blaha
+ 0000           ; //created: July 12, 2007
+ 0000           ; //last revised: February 25, 2008
+ 0000           ; //***************************************************************
+ 0000           ; //include files**************************************************
+ 0000           ; #include<iom48v.h>                            //ImageCraft ICC AVR
+ 0000           ;                                                               //include file
+ 0000           ; //for ATmega48
+ 0000           ; //function prototypes********************************************
+ 0000           ; void initialize_ports(void);  //initializes ports
+ 0000           ; void InitADC(void);                           //initalizes analog to digital
+ 0000           ; void USART_init(void);                        //initializes USART
+ 0000           ; void USART_transmit(unsigned char data); //initalizes USART transmitter
+ 0000           ; unsigned int ReadADC(unsigned char channel);//reads analog to digital voltage
+ 0000           ; //main program***************************************************
+ 0000           ; //global variables
+ 0000           ; unsigned char old_digital = 0x00; //present value of analog to digital conversion
+ 0000           ; unsigned char new_digital;            //new values of analog to digital conversion
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 73
+ 0000           ; initialize_ports();                   //initialize ports
+ 0000 14D0              rcall _initialize_ports
+ 0002                   .dbline 74
+ 0002           ; InitADC();                                            //initialize ADC
+ 0002 1CD0              rcall _InitADC
+ 0004                   .dbline 75
+ 0004           ; USART_init();                                 //initialize USART
+ 0004 47D0              rcall _USART_init
+ 0006 0FC0              rjmp L3
+ 0008           L2:
+ 0008                   .dbline 77
+ 0008           ; 
+ 0008           ; while(1){//main loop
+ 0008                   .dbline 78
+ 0008           ;       new_digital = ReadADC(0x20);//read analog input on PORTC pin0, left justify
+ 0008 00E2              ldi R16,32
+ 000A 2AD0              rcall _ReadADC
+ 000C 00930000          sts _new_digital,R16
+ 0010                   .dbline 79
+ 0010           ;       if(new_digital != old_digital){ //process change
+ 0010 20900000          lds R2,_old_digital
+ 0014 302E              mov R3,R16
+ 0016 0215              cp R16,R2
+ 0018 11F0              breq L5
+ 001A           X0:
+ 001A                   .dbline 79
+ 001A                   .dbline 80
+ 001A           ;               PORTB=new_digital;              //in PORTB input
+ 001A 05B9              out 0x5,R16
+ 001C                   .dbline 81
+ 001C           ;               USART_transmit(new_digital);
+ 001C 4AD0              rcall _USART_transmit
+ 001E                   .dbline 83
+ 001E           ;               //PORTB=new_digital;            //in PORTB input
+ 001E           ;         }                                             //end if new_digital
+ 001E           L5:
+ 001E                   .dbline 84
+ 001E           ;               old_digital=new_digital;//update PORTC
+ 001E 20900000          lds R2,_new_digital
+ 0022 20920000          sts _old_digital,R2
+ 0026                   .dbline 85
+ 0026           ;       }                                                       //end while(1)
+ 0026           L3:
+ 0026                   .dbline 77
+ 0026 F0CF              rjmp L2
+ 0028           X1:
+ 0028                   .dbline -2
+ 0028           L1:
+ 0028                   .dbline 0 ; func end
+ 0028 0895              ret
+ 002A                   .dbend
+ 002A                   .dbfunc e initialize_ports _initialize_ports fV
+                        .even
+ 002A           _initialize_ports::
+ 002A                   .dbline -1
+ 002A                   .dbline 94
+ 002A           ; }                                                             //end main
+ 002A           ; //***************************************************************
+ 002A           ; //function definitions
+ 002A           ; //***************************************************************
+ 002A           ; //***************************************************************
+ 002A           ; //initialize_ports: provides initial configuration for I/O ports
+ 002A           ; //***************************************************************
+ 002A           ; void initialize_ports(void)
+ 002A           ; {
+ 002A                   .dbline 96
+ 002A           ; 
+ 002A           ; DDRB=0xff;                                            //PORTB as output
+ 002A 8FEF              ldi R24,255
+ 002C 84B9              out 0x4,R24
+ 002E                   .dbline 97
+ 002E           ; PORTB=0xff;                                           //initialize PORTB high
+ 002E 85B9              out 0x5,R24
+ 0030                   .dbline 100
+ 0030           ;       //PORTB is not being used
+ 0030           ; 
+ 0030           ; DDRC=0x00;                                            //PORTC[7:0] as input
+ 0030 2224              clr R2
+ 0032 27B8              out 0x7,R2
+ 0034                   .dbline 101
+ 0034           ; PORTC=0x00;                                   //disable PORTC
+ 0034 28B8              out 0x8,R2
+ 0036                   .dbline 104
+ 0036           ;       //pull-up resistors
+ 0036           ; 
+ 0036           ; DDRD=0xff;                                            //set PORTD as output
+ 0036 8AB9              out 0xa,R24
+ 0038                   .dbline 105
+ 0038           ; PORTD=0xff;                                   //initialize high
+ 0038 8BB9              out 0xb,R24
+ 003A                   .dbline -2
+ 003A           L7:
+ 003A                   .dbline 0 ; func end
+ 003A 0895              ret
+ 003C                   .dbend
+ 003C                   .dbfunc e InitADC _InitADC fV
+                        .even
+ 003C           _InitADC::
+ 003C                   .dbline -1
+ 003C                   .dbline 116
+ 003C           ;       //port D is transmitting usart on channel 1 pin 3
+ 003C           ; }
+ 003C           ; //***************************************************************
+ 003C           ; 
+ 003C           ; 
+ 003C           ; 
+ 003C           ; //*************************************************************
+ 003C           ; //InitADC: initialize analog-to-digital converter
+ 003C           ; //*************************************************************
+ 003C           ; void InitADC( void)
+ 003C           ; {
+ 003C                   .dbline 117
+ 003C           ; PRR=0x00;//Power Reduction Register, zeros shut off all power reduction 
+ 003C 2224              clr R2
+ 003E 20926400          sts 100,R2
+ 0042                   .dbline 118
+ 0042           ; ADMUX = 0; //Select channel 0
+ 0042 20927C00          sts 124,R2
+ 0046                   .dbline 119
+ 0046           ; ADCSRA = 0xC3;        /*Enable ADC & start 1st dummy conversion Set ADC module prescalar to 8 critical for accurate ADC results*/
+ 0046 83EC              ldi R24,195
+ 0048 80937A00          sts 122,R24
+ 004C           L9:
+ 004C                   .dbline 120
+ 004C           ; while (!(ADCSRA & 0x10));     //Check if conversation is ready
+ 004C           L10:
+ 004C                   .dbline 120
+ 004C 80917A00          lds R24,122
+ 0050 8071              andi R24,16
+ 0052 E1F3              breq L9
+ 0054           X2:
+ 0054                   .dbline 121
+ 0054           ; ADCSRA |= 0x10; //Clear conv rdy flag - set the bit, reset interupt flag
+ 0054 80917A00          lds R24,122
+ 0058 8061              ori R24,16
+ 005A 80937A00          sts 122,R24
+ 005E                   .dbline -2
+ 005E           L8:
+ 005E                   .dbline 0 ; func end
+ 005E 0895              ret
+ 0060                   .dbend
+ 0060                   .dbfunc e ReadADC _ReadADC fi
+ 0060           ; binary_weighted_voltage_high -> <dead>
+ 0060           ; binary_weighted_voltage_low -> <dead>
+ 0060           ; binary_weighted_voltage -> <dead>
+ 0060           ; most_significantbits -> R10,R11
+ 0060           ;        channel -> R16
+                        .even
+ 0060           _ReadADC::
+ 0060 AA92              st -y,R10
+ 0062 BA92              st -y,R11
+ 0064                   .dbline -1
+ 0064                   .dbline 132
+ 0064           ; }
+ 0064           ; //*************************************************************
+ 0064           ; //ReadADC: read analog voltage from analog-to-digital converter -
+ 0064           ; //the desired channel for conversion is passed in as an unsigned
+ 0064           ; //character variable. The result is returned as a left justified,
+ 0064           ; //10 bit binary result. The ADC prescalar must be set to 8 to
+ 0064           ; //slow down the ADC clock at higher external clock frequencies
+ 0064           ; //(10 MHz) to obtain accurate results.
+ 0064           ; //*************************************************************
+ 0064           ; unsigned int ReadADC(unsigned char channel)
+ 0064           ; {
+ 0064                   .dbline 136
+ 0064           ; unsigned int binary_weighted_voltage, binary_weighted_voltage_low;
+ 0064           ; unsigned int binary_weighted_voltage_high; //weighted binary voltage
+ 0064           ; unsigned int most_significantbits;
+ 0064           ; ADMUX = channel; //Select channel
+ 0064 00937C00          sts 124,R16
+ 0068                   .dbline 137
+ 0068           ; ADCSRA |= 0x43; //Start conversion
+ 0068 80917A00          lds R24,122
+ 006C 8364              ori R24,67
+ 006E 80937A00          sts 122,R24
+ 0072           L13:
+ 0072                   .dbline 141
+ 0072           ; //Set ADC module prescalar
+ 0072           ; //to 8 critical for
+ 0072           ; //accurate ADC results
+ 0072           ; while (!(ADCSRA & 0x10)); //Check if converstion is
+ 0072           L14:
+ 0072                   .dbline 141
+ 0072 80917A00          lds R24,122
+ 0076 8071              andi R24,16
+ 0078 E1F3              breq L13
+ 007A           X3:
+ 007A                   .dbline 143
+ 007A           ; //ready
+ 007A           ; ADCSRA |= 0x10; //Clear Conv rdy flag - set
+ 007A 80917A00          lds R24,122
+ 007E 8061              ori R24,16
+ 0080 80937A00          sts 122,R24
+ 0084                   .dbline 151
+ 0084           ; //the bit
+ 0084           ; /*binary_weighted_voltage_low = ADCL; //Read 8 low bits first
+ 0084           ; //(important)
+ 0084           ; //Read 2 high bits,
+ 0084           ; //multiply by 256
+ 0084           ; binary_weighted_voltage_high = ((unsigned int)(ADCH << 8));
+ 0084           ; binary_weighted_voltage = binary_weighted_voltage_low | binary_weighted_voltage_high;*/
+ 0084           ; most_significantbits=ADCH;
+ 0084 A0907900          lds R10,121
+ 0088 BB24              clr R11
+ 008A                   .dbline 152
+ 008A           ; return most_significantbits; //ADCH:ADCL
+ 008A 0A2D              mov R16,R10
+ 008C 1B2D              mov R17,R11
+ 008E                   .dbline -2
+ 008E           L12:
+ 008E                   .dbline 0 ; func end
+ 008E B990              ld R11,y+
+ 0090 A990              ld R10,y+
+ 0092 0895              ret
+ 0094                   .dbsym l binary_weighted_voltage_high 1 i
+ 0094                   .dbsym l binary_weighted_voltage_low 1 i
+ 0094                   .dbsym l binary_weighted_voltage 1 i
+ 0094                   .dbsym r most_significantbits 10 i
+ 0094                   .dbsym r channel 16 c
+ 0094                   .dbend
+ 0094                   .dbfunc e USART_init _USART_init fV
+                        .even
+ 0094           _USART_init::
+ 0094                   .dbline -1
+ 0094                   .dbline 161
+ 0094           ; }
+ 0094           ; //*************************************************************
+ 0094           ; 
+ 0094           ; 
+ 0094           ; //*************************************************************
+ 0094           ; //USART_init: initializes the USART system
+ 0094           ; /*********************************************/
+ 0094           ; void USART_init(void)
+ 0094           ; {
+ 0094                   .dbline 163
+ 0094           ; /*Set baud rate */
+ 0094           ; UBRR0H = 0x00;                //instead of using ubrr use values from barretts primer example
+ 0094 2224              clr R2
+ 0096 2092C500          sts 197,R2
+ 009A                   .dbline 164
+ 009A           ; UBRR0L = 0x40;
+ 009A 80E4              ldi R24,64
+ 009C 8093C400          sts 196,R24
+ 00A0                   .dbline 166
+ 00A0           ; /*Enable transmitter 0x08=0b00001000*/
+ 00A0           ; UCSR0B = 0x08;
+ 00A0 88E0              ldi R24,8
+ 00A2 8093C100          sts 193,R24
+ 00A6                   .dbline 168
+ 00A6           ; /* 0b00000110=0x06 async,no parity,1 stop bit, 8 bit width. see page 194 of data sheet */
+ 00A6           ; UCSR0C = 0x06;
+ 00A6 86E0              ldi R24,6
+ 00A8 8093C200          sts 194,R24
+ 00AC                   .dbline 170
+ 00AC           ; /*                                    */
+ 00AC           ; UCSR0A = 0x00;
+ 00AC 2092C000          sts 192,R2
+ 00B0                   .dbline -2
+ 00B0           L16:
+ 00B0                   .dbline 0 ; func end
+ 00B0 0895              ret
+ 00B2                   .dbend
+ 00B2                   .dbfunc e USART_transmit _USART_transmit fV
+ 00B2           ;           data -> R16
+                        .even
+ 00B2           _USART_transmit::
+ 00B2                   .dbline -1
+ 00B2                   .dbline 181
+ 00B2           ; }
+ 00B2           ; 
+ 00B2           ; /*********************************************/
+ 00B2           ; 
+ 00B2           ; //*************************************************************
+ 00B2           ; //USART_transmit: transmits single byte of data
+ 00B2           ; /*********************************************/
+ 00B2           ; 
+ 00B2           ; 
+ 00B2           ; void USART_transmit( unsigned char data )
+ 00B2           ; {
+ 00B2           L18:
+ 00B2                   .dbline 184
+ 00B2           ; /* Wait for empty transmit buffer */
+ 00B2           ; while ( !( UCSR0A & (1<<UDRE0)) )
+ 00B2           ; ;
+ 00B2           L19:
+ 00B2                   .dbline 183
+ 00B2 8091C000          lds R24,192
+ 00B6 8072              andi R24,32
+ 00B8 E1F3              breq L18
+ 00BA           X4:
+ 00BA                   .dbline 186
+ 00BA           ; /* Put data into buffer, sends the data */
+ 00BA           ; UDR0 = data;
+ 00BA 0093C600          sts 198,R16
+ 00BE                   .dbline -2
+ 00BE           L17:
+ 00BE                   .dbline 0 ; func end
+ 00BE 0895              ret
+ 00C0                   .dbsym r data 16 c
+ 00C0                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+ 0000           _new_digital::
+ 0000                   .blkb 1
+ 0001                   .dbsym e new_digital _new_digital c
+ 0001           ; }
+ 0001           ; 
+ 0001           ; //***************************************************************
+ 0001           ; 

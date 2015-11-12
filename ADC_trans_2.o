@@ -1,0 +1,130 @@
+XL
+H 4 areas 8 global symbols
+M ADC_trans_2.c
+A text size C0 flags 0
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 48 0
+dbline 49 0
+dbline 4A 2
+dbline 4B 4
+dbline 4D 8
+dbline 4E 8
+dbline 4F 10
+dbline 4F 1A
+dbline 50 1A
+dbline 51 1C
+dbline 53 1E
+dbline 54 1E
+dbline 55 26
+dbline 4D 26
+dbline FFFFFFFE 28
+dbline 0 28
+dbfunc e initialize_ports 2A fV
+dbline FFFFFFFF 2A
+dbline 5E 2A
+dbline 60 2A
+dbline 61 2E
+dbline 64 30
+dbline 65 34
+dbline 68 36
+dbline 69 38
+dbline FFFFFFFE 3A
+dbline 0 3A
+dbfunc e InitADC 3C fV
+dbline FFFFFFFF 3C
+dbline 74 3C
+dbline 75 3C
+dbline 76 42
+dbline 77 46
+dbline 78 4C
+dbline 78 4C
+dbline 79 54
+dbline FFFFFFFE 5E
+dbline 0 5E
+dbfunc e ReadADC 60 fi
+dbsym l binary_weighted_voltage_high 1 i
+dbsym l binary_weighted_voltage_low 1 i
+dbsym l binary_weighted_voltage 1 i
+dbsym r most_significantbits A i
+dbsym r channel 10 c
+dbline FFFFFFFF 64
+dbline 84 64
+dbline 88 64
+dbline 89 68
+dbline 8D 72
+dbline 8D 72
+dbline 8F 7A
+dbline 97 84
+dbline 98 8A
+dbline FFFFFFFE 8E
+dbline 0 8E
+dbfunc e USART_init 94 fV
+dbline FFFFFFFF 94
+dbline A1 94
+dbline A3 94
+dbline A4 9A
+dbline A6 A0
+dbline A8 A6
+dbline AA AC
+dbline FFFFFFFE B0
+dbline 0 B0
+dbfunc e USART_transmit B2 fV
+dbsym r data 10 c
+dbline FFFFFFFF B2
+dbline B5 B2
+dbline B8 B2
+dbline B7 B2
+dbline BA BA
+dbline FFFFFFFE BE
+dbline 0 BE
+S _USART_init Def0094
+S _main Def0000
+S _initialize_ports Def002A
+S _ReadADC Def0060
+S _InitADC Def003C
+S _USART_transmit Def00B2
+A data size 1 flags 20
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+dbsym e old_digital 0 c
+S _old_digital Def0000
+A idata size 1 flags 0
+A bss size 1 flags 20
+dbfile C:\DOCUME~1\BBLAHA\Desktop\mega48\ADC_trans_2.c
+dbsym e new_digital 0 c
+S _new_digital Def0000
+T 00 00 00
+R 00 00 02 00
+T 00 00 14 D0 1C D0 47 D0 0F C0 00 E2 2A D0 00 93
+R 00 00 00 00
+T 0E 00 00 00 20 90 00 00 30 2E 02 15 11 F0 05 B9
+R 00 00 00 00 00 02 03 00 00 06 01 00
+T 1C 00 4A D0 20 90 00 00 20 92 00 00 F0 CF 08 95
+R 00 00 00 00 00 06 03 00 00 0A 01 00
+T 2A 00 8F EF 84 B9 85 B9 22 24 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 38 00 8B B9 08 95
+R 00 00 00 00
+T 3C 00 22 24 20 92 64 00 20 92 7C 00 83 EC 80 93
+R 00 00 00 00
+T 4A 00 7A 00 80 91 7A 00 80 71 E1 F3 80 91 7A 00
+R 00 00 00 00
+T 58 00 80 61 80 93 7A 00 08 95
+R 00 00 00 00
+T 60 00 AA 92 BA 92 00 93 7C 00 80 91 7A 00 83 64
+R 00 00 00 00
+T 6E 00 80 93 7A 00 80 91 7A 00 80 71 E1 F3 80 91
+R 00 00 00 00
+T 7C 00 7A 00 80 61 80 93 7A 00 A0 90 79 00 BB 24
+R 00 00 00 00
+T 8A 00 0A 2D 1B 2D B9 90 A9 90 08 95
+R 00 00 00 00
+T 94 00 22 24 20 92 C5 00 80 E4 80 93 C4 00 88 E0
+R 00 00 00 00
+T A2 00 80 93 C1 00 86 E0 80 93 C2 00 20 92 C0 00
+R 00 00 00 00
+T B0 00 08 95
+R 00 00 00 00
+T B2 00 80 91 C0 00 80 72 E1 F3 00 93 C6 00 08 95
+R 00 00 00 00

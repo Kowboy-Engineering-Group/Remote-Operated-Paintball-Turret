@@ -1,0 +1,56 @@
+XL
+H 2 areas 4 global symbols
+M initialize.c
+A text size 3A flags 0
+dbfile G:\mega48\initialize.c
+dbfunc e main 0 fV
+dbline FFFFFFFF 0
+dbline 44 0
+dbline 45 0
+dbline 46 4
+dbline 4C 4
+dbline 4D 6
+dbline 46 6
+dbline FFFFFFFE 8
+dbline 0 8
+dbfunc e initialize_ports A fV
+dbline FFFFFFFF A
+dbline 56 A
+dbline 58 A
+dbline 59 E
+dbline 5C 12
+dbline 5D 14
+dbline 60 16
+dbline 61 18
+dbline FFFFFFFE 1A
+dbline 0 1A
+dbfunc e delay_5ms 1C fV
+dbline FFFFFFFF 1C
+dbline 67 1C
+dbline 68 1C
+dbline 69 24
+dbline 6A 24
+dbline 6B 26
+dbline 68 26
+dbline 68 30
+dbline FFFFFFFE 38
+dbline 0 38
+S _main Def0000
+S _initialize_ports Def000A
+S _delay_5ms Def001C
+A bss size 1 flags 20
+dbfile G:\mega48\initialize.c
+dbsym e i 0 c
+S _i Def0000
+T 00 00 04 D0 01 C0 0B D0 FE CF 08 95
+R 00 00 00 00
+T 0A 00 8F EF 84 B9 22 24 25 B8 27 B8 28 B8 8A B9
+R 00 00 00 00
+T 18 00 8B B9 08 95
+R 00 00 00 00
+T 1C 00 22 24 20 92 00 00 06 C0 00 00 80 91 00 00
+R 00 00 00 00 00 06 01 00 00 0E 01 00
+T 2A 00 8F 5F 80 93 00 00 80 91 00 00 80 39 B0 F3
+R 00 00 00 00 00 06 01 00 00 0A 01 00
+T 38 00 08 95
+R 00 00 00 00

@@ -1,0 +1,192 @@
+                        .module initialize.c
+                        .area text(rom, con, rel)
+ 0000                   .dbfile G:\mega48\initialize.c
+ 0000                   .dbfunc e main _main fV
+                        .even
+ 0000           _main::
+ 0000                   .dbline -1
+ 0000                   .dbline 68
+ 0000           ; //*************************************************************
+ 0000           ; //file name: testbench_atmega48_trial1.c
+ 0000           ; //function: provides test bench for ATMEL AVR ATmega48 controller
+ 0000           ; //target controller: ATMEL ATmega48
+ 0000           ; //
+ 0000           ; //ATMEL AVR ATmega48 Controller Pin Assignments
+ 0000           ; //Chip Port Function I/O Source/Dest Asserted Notes
+ 0000           ; //*************************************************************
+ 0000           ; //Pin 1 Reset
+ 0000           ; //*************************************************************
+ 0000           ; //Pin 1 PB0
+ 0000           ; //Pin 2 PB1
+ 0000           ; //Pin 3 PB2
+ 0000           ; //Pin 4 PB3
+ 0000           ; //Pin 5 PB4 
+ 0000           ; //Pin 6 PB5 
+ 0000           ; //Pin 7 PB6 
+ 0000           ; //Pin 8 PB7 
+ 0000           ; //Pin 9 Reset
+ 0000           ; //Pin 10 VDD
+ 0000           ; //Pin 11 Gnd
+ 0000           ; //Pin 12 Resonator
+ 0000           ; //Pin 13 Resonator
+ 0000           ; //Pin 14 PD0 to tristate LED indicator
+ 0000           ; //Pin 15 PD1 to tristate LED indicator
+ 0000           ; //Pin 16 PD2 to tristate LED indicator
+ 0000           ; //Pin 17 PD3 to tristate LED indicator
+ 0000           ; //Pin 18 PD4 
+ 0000           ; //Pin 19 PD5 
+ 0000           ; //Pin 20 PD6 
+ 0000           ; //Pin 21 PD7 
+ 0000           ; //Pin 22 PC0 to active high RC debounced switch
+ 0000           ; //Pin 23 PC1 to active high RC debounced switch
+ 0000           ; //Pin 24 PC2 to active high RC debounced switch
+ 0000           ; //Pin 25 PC3 to active high RC debounced switch
+ 0000           ; //Pin 26 PC4
+ 0000           ; //Pin 27 PC5
+ 0000           ; //Pin 28 PC6
+ 0000           ; //Pin 29 PC7
+ 0000           ; //Pin 30 AVcc to VDD
+ 0000           ; //Pin 31 AGnd to Ground
+ 0000           ; //Pin 32 ARef to Vcc
+ 0000           ; //Pin 33 PA7
+ 0000           ; //Pin 34 PA6
+ 0000           ; //Pin 35 PA5
+ 0000           ; //Pin 36 PA4
+ 0000           ; //Pin 37 PA3
+ 0000           ; //Pin 38 PA2
+ 0000           ; //Pin 39 PA1
+ 0000           ; //Pin 40 PA0
+ 0000           ; //
+ 0000           ; //orginal authors: Steven Barrett and Daniel Pack
+ 0000           ; //modifying author: Barry Blaha
+ 0000           ; //created: July 12, 2007
+ 0000           ; //last revised: February 25, 2008
+ 0000           ; //***************************************************************
+ 0000           ; //include files**************************************************
+ 0000           ; #include<iom48v.h>                            //ImageCraft ICC AVR
+ 0000           ;                                                               //include file
+ 0000           ; //for ATmega48
+ 0000           ; //function prototypes********************************************
+ 0000           ; void initialize_ports(void);  //initializes ports
+ 0000           ; void delay_5ms(void);
+ 0000           ; //main program***************************************************
+ 0000           ; //global variables
+ 0000           ; unsigned char i;              //new values of PORTC
+ 0000           ; void main(void)
+ 0000           ; {
+ 0000                   .dbline 69
+ 0000           ; initialize_ports();                   //initialize ports
+ 0000 04D0              rcall _initialize_ports
+ 0002 01C0              rjmp L3
+ 0004           L2:
+ 0004                   .dbline 70
+ 0004           ; while(1){//main loop
+ 0004                   .dbline 76
+ 0004           ;       //new_PORTC = PINC;                     //read PORTC
+ 0004           ;       //if(new_PORTC != old_PORTC){ //process change
+ 0004           ;       //              PORTD=new_PORTC;
+ 0004           ;       //  }                                           //end if new_PORTC
+ 0004           ;       //      old_PORTC=new_PORTC;    //update PORTC
+ 0004           ;       delay_5ms();
+ 0004 0BD0              rcall _delay_5ms
+ 0006                   .dbline 77
+ 0006           ;       }                                                       //end while(1)
+ 0006           L3:
+ 0006                   .dbline 70
+ 0006 FECF              rjmp L2
+ 0008           X0:
+ 0008                   .dbline -2
+ 0008           L1:
+ 0008                   .dbline 0 ; func end
+ 0008 0895              ret
+ 000A                   .dbend
+ 000A                   .dbfunc e initialize_ports _initialize_ports fV
+                        .even
+ 000A           _initialize_ports::
+ 000A                   .dbline -1
+ 000A                   .dbline 86
+ 000A           ; }                                                             //end main
+ 000A           ; //***************************************************************
+ 000A           ; //function definitions
+ 000A           ; //***************************************************************
+ 000A           ; //***************************************************************
+ 000A           ; //initialize_ports: provides initial configuration for I/O ports
+ 000A           ; //***************************************************************
+ 000A           ; void initialize_ports(void)
+ 000A           ; {
+ 000A                   .dbline 88
+ 000A           ; 
+ 000A           ; DDRB=0xff;                                            //PORTB as output
+ 000A 8FEF              ldi R24,255
+ 000C 84B9              out 0x4,R24
+ 000E                   .dbline 89
+ 000E           ; PORTB=0x00;                                           //initialize PORTB low
+ 000E 2224              clr R2
+ 0010 25B8              out 0x5,R2
+ 0012                   .dbline 92
+ 0012           ;       //PORTB is not being used
+ 0012           ; 
+ 0012           ; DDRC=0x00;                                            //PORTC[7:0] as input
+ 0012 27B8              out 0x7,R2
+ 0014                   .dbline 93
+ 0014           ; PORTC=0x00;                                   //disable PORTC
+ 0014 28B8              out 0x8,R2
+ 0016                   .dbline 96
+ 0016           ;       //pull-up resistors
+ 0016           ; 
+ 0016           ; DDRD=0xff;                                            //set PORTD as output
+ 0016 8AB9              out 0xa,R24
+ 0018                   .dbline 97
+ 0018           ; PORTD=0xff;                                   //initialize hi
+ 0018 8BB9              out 0xb,R24
+ 001A                   .dbline -2
+ 001A           L5:
+ 001A                   .dbline 0 ; func end
+ 001A 0895              ret
+ 001C                   .dbend
+ 001C                   .dbfunc e delay_5ms _delay_5ms fV
+                        .even
+ 001C           _delay_5ms::
+ 001C                   .dbline -1
+ 001C                   .dbline 103
+ 001C           ;       //port D is the output port with LEDS
+ 001C           ; }
+ 001C           ; //***************************************************************
+ 001C           ; 
+ 001C           ; void delay_5ms()
+ 001C           ; {
+ 001C                   .dbline 104
+ 001C           ;       for(i=0; i<400; i++)
+ 001C 2224              clr R2
+ 001E 20920000          sts _i,R2
+ 0022 06C0              rjmp L10
+ 0024           L7:
+ 0024                   .dbline 105
+ 0024           ;       {
+ 0024                   .dbline 106
+ 0024           ;               asm("nop");
+ 0024 0000              nop
+ 0026                   .dbline 107
+ 0026           ;       }
+ 0026           L8:
+ 0026                   .dbline 104
+ 0026 80910000          lds R24,_i
+ 002A 8F5F              subi R24,255    ; addi 1
+ 002C 80930000          sts _i,R24
+ 0030           L10:
+ 0030                   .dbline 104
+ 0030 80910000          lds R24,_i
+ 0034 8039              cpi R24,144
+ 0036 B0F3              brlo L7
+ 0038           X1:
+ 0038                   .dbline -2
+ 0038           L6:
+ 0038                   .dbline 0 ; func end
+ 0038 0895              ret
+ 003A                   .dbend
+                        .area bss(ram, con, rel)
+ 0000                   .dbfile G:\mega48\initialize.c
+ 0000           _i::
+ 0000                   .blkb 1
+ 0001                   .dbsym e i _i c
+ 0001           ; }
